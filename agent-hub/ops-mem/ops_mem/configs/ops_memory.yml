@@ -1,0 +1,10 @@
+agent:
+  # 向量库配置（直接给chromadb用）
+  vector_store:
+    config:
+      collection_name: "ops-memory"  # Chroma集合名
+      path: "/home/yang/worksapce/AIOS/agent-hub/my-mem/my_mem/local_ops_db" 
+  # 嵌入器配置（直接给sentence-transformers用）
+  embedder:
+    config:
+      model: "BAAI/bge-small-zh-v1.5"  # 中文嵌入模型名
