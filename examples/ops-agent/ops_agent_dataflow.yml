@@ -12,7 +12,7 @@ nodes:
     outputs:
       - ops_mem_result
     inputs:
-      query: terminal-input/data
+      query: mock-voice/data
     env:
       IS_DATAFLOW_END: true
       WRITE_LOG: true
