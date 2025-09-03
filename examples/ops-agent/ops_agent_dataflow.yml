@@ -5,14 +5,24 @@ nodes:
     outputs:
       - data
     inputs:
-      agent_response: ops-mem-agent/ops_mem_result
+      agent_response: ops-scheduler/scheduler_result
+
+  - id: ops-scheduler
+    build: pip install -e ../../node-hub/ops-scheduler
+    path: ops-scheduler
+    outputs:
+      - scheduler_result
+      - query  # 输出查询到记忆模块
+      - weather_request  # 输出天气查询请求
+    inputs:
+      input_event: mock-voice/data  # 接收模拟语音输入
+      mem_result: ops-mem-agent/ops_mem_result  # 接收记忆模块结果
+      weather_result: weather-agent/weather_data  # 接收天气模块结果
+
   - id: ops-mem-agent
     build: pip install -e ../../agent-hub/ops-mem
     path: ops-mem
     outputs:
       - ops_mem_result
     inputs:
-      query: mock-voice/data
-    env:
-      IS_DATAFLOW_END: true
-      WRITE_LOG: true
+      query: ops-scheduler/query

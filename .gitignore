@@ -6,3 +6,4 @@ data/**
 ./**/.db
 ./**/.env
 *.
+example/ops-agent/.env.secretenv.secret
