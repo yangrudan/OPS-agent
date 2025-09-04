@@ -7,3 +7,23 @@ data/**
 ./**/.env
 *.
 example/ops-agent/.env.secretenv.secret
+example/test_llm/.env.secretenv.secret
+example/ops-agent/out/*
+example/test_llm/out/*
+
+# 忽略日志文件
+*.log
+
+# 忽略 Python 编译生成的 .pyc 文件
+*.pyc
+
+# 忽略示例中的输出目录和相关文件
+examples/**/out/
+examples/**/logs/*
+
+# 忽略测试相关的输出目录
+examples/test_llm/out/
+
+# 如果你还有其他特定的调试或临时文件目录，也可以添加
+# 比如 node-hub 下可能的临时文件等，可根据实际情况补充
+# node-hub/**/tmp/

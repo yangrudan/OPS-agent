@@ -26,3 +26,109 @@ Caused by:
 
 Location:
     binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:40:32.965033Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-mem-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:40:47.899665Z  WARN dora_daemon::node_communication: failed to send NextEvent reply: NextEvents([Timestamped { inner: Stop, timestamp: 68b97abfe64b14f0/2CC59DF225DF4B2785FD3ECCA4D9620B }])
+
+Caused by:
+   0: failed to send reply to node `ops-mem-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:41:02.900929Z  WARN dora_daemon: ops-scheduler was killed due to not stopping within the 15s grace period
+2025-09-04T11:41:02.913420Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-scheduler`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:42:30.303514Z  WARN dora_daemon: ops-mem-agent was killed due to not stopping within the 15s grace period
+2025-09-04T11:42:30.303912Z  WARN dora_daemon: ops-scheduler was killed due to not stopping within the 15s grace period
+2025-09-04T11:42:30.320088Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-scheduler`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:42:30.362592Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-mem-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:43:02.565207Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-09-04T11:43:02.565998Z  INFO zenoh::net::runtime: Using ZID: 4e30a2986c75b2fc9757d9f8007845bc
+2025-09-04T11:43:02.566624Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:98b3:efe9:f2d9:4]:5456
+2025-09-04T11:43:02.566635Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:6a1e:2b3a:861f:6d44]:5456
+2025-09-04T11:43:02.566637Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:ec34:2bcf:b3b:9848]:5456
+2025-09-04T11:43:02.566639Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::d0c0:52b6:54b4:60e3]:5456
+2025-09-04T11:43:02.566641Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.3.9:5456
+2025-09-04T11:43:02.566697Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446
+2025-09-04T11:43:56.045332Z  WARN dora_daemon: ops-mem-agent was killed due to not stopping within the 15s grace period
+2025-09-04T11:43:56.045913Z  WARN dora_daemon: ops-scheduler was killed due to not stopping within the 15s grace period
+2025-09-04T11:43:56.060736Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-scheduler`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:43:56.081514Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-mem-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:58:15.849562Z  WARN dora_daemon: ops-llm-agent was killed due to not stopping within the 15s grace period
+2025-09-04T11:58:15.864823Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-llm-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T11:59:47.248818Z  WARN dora_daemon: ops-llm-agent was killed due to not stopping within the 15s grace period
+2025-09-04T11:59:47.262107Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-llm-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T12:00:12.337748Z  WARN dora_daemon: ops-llm-agent was killed due to not stopping within the 15s grace period
+2025-09-04T12:00:12.349214Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-llm-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
