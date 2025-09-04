@@ -38,6 +38,7 @@ nodes:
      - llm_result
     inputs:
      query: ops-mem/ops_mem_result
+     weather_query: ops-weather/ops_weather_result
     env:
      IS_DATAFLOW_END: true
      WRITE_LOG: true
