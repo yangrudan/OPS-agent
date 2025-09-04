@@ -22,6 +22,14 @@ nodes:
       - ops_mem_result
     inputs:
       query: ops-scheduler/query
+  
+  - id: ops-weather
+    build: pip install -e ../../agent-hub/ops-weather
+    path: ops-weather
+    outputs:
+      - ops_weather_result
+    inputs:
+      query: ops-scheduler/weather_query
       
   - id: ops-llm-agent
     build: pip install -e ../../agent-hub/ops-llm-agent

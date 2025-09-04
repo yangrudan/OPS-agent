@@ -14,3 +14,7 @@ rm -f /home/yang/miniconda3/envs/test_eval_frame/bin/ope-mem
 
 
 pip uninstall -y ops-scheduler --no-cache-dir
+
+pip uninstall -y ops-llm-agent --no-cache-dir
+
+pip uninstall -y ops-weather --no-cache-dir

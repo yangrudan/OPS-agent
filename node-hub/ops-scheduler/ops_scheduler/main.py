@@ -1,7 +1,7 @@
 
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from .handlers.memory import handle_memory_query
-# from .handlers.weather import handle_weather_query
+from .handlers.weather import handle_weather_query
 # from .handlers.safe import handle_safety_alert
 # from .handlers.llm_dialog import LLMHandler 
 import yaml
@@ -33,8 +33,8 @@ def run(agent: MofaAgent):
             result = handle_memory_query(agent, input_event, config)
             print("🧠 !!!记忆查询结果：", result)
         elif event_type == "weather":
-            pass
-            # result = handle_weather_query(agent, input_event, config)
+            print("!!!准备进行天气查询事件...")
+            result = handle_weather_query(agent, input_event, config)
         elif event_type == "safety":
             pass
             # result = handle_safety_alert(agent, input_event, config)
