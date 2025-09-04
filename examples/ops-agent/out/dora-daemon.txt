@@ -132,3 +132,41 @@ Caused by:
 
 Location:
     binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T12:29:51.589030Z  WARN dora_daemon: ops-llm-agent was killed due to not stopping within the 15s grace period
+2025-09-04T12:29:51.590085Z  WARN dora_daemon: ops-mem was killed due to not stopping within the 15s grace period
+2025-09-04T12:29:51.590500Z  WARN dora_daemon: ops-scheduler was killed due to not stopping within the 15s grace period
+2025-09-04T12:29:51.611250Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-llm-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T12:29:51.612114Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-scheduler`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T12:29:51.645880Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-mem`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-04T12:44:45.391689Z  INFO dora_daemon::coordinator: Connected to dora-coordinator at 127.0.0.1:53290
+2025-09-04T12:44:45.397457Z  INFO zenoh::net::runtime: Using ZID: dc2b62883cd5cc2f62a022a9bd801c90
+2025-09-04T12:44:45.398423Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:98b3:efe9:f2d9:4]:5456
+2025-09-04T12:44:45.398449Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:9a96:8118:445d:43b9]:5456
+2025-09-04T12:44:45.398455Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[240e:391:eb7:afc0:ec34:2bcf:b3b:9848]:5456
+2025-09-04T12:44:45.398459Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/[fe80::d0c0:52b6:54b4:60e3]:5456
+2025-09-04T12:44:45.398464Z  INFO zenoh::net::runtime::orchestrator: Zenoh can be reached at: tcp/192.168.3.9:5456
+2025-09-04T12:44:45.398543Z  INFO zenoh::net::runtime::orchestrator: zenohd listening scout messages on 224.0.0.224:7446

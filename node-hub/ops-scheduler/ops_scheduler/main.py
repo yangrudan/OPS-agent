@@ -29,9 +29,9 @@ def run(agent: MofaAgent):
         
         # 分发到对应处理器
         if event_type == "memory":
-            print("🧠 AAAAAAAAAA处理记忆查询事件...")
+            print("🧠 !!!准备进行记忆查询事件...")
             result = handle_memory_query(agent, input_event, config)
-            print("🧠 AAAAAAAAAA记忆查询结果：", result)
+            print("🧠 !!!记忆查询结果：", result)
         elif event_type == "weather":
             pass
             # result = handle_weather_query(agent, input_event, config)
@@ -48,10 +48,10 @@ def run(agent: MofaAgent):
         # 发送最终结果到输出节点（如语音TTS）
         print("📤 !!!!!!调度结果：", result)
 
-        agent.send_output(
-            agent_output_name='scheduler_result',
-            agent_result=result
-        )
+        # agent.send_output(
+        #     agent_output_name='scheduler_result',
+        #     agent_result=result
+        # )
 
 def classify_event(input_event):
     """根据输入内容分类事件类型"""
