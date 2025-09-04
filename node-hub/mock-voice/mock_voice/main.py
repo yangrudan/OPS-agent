@@ -11,8 +11,6 @@ from mofa.utils.install_pkg.load_task_weaver_result import extract_important_con
 RUNNER_CI = True if os.getenv("CI") == "true" else False
 
 
-
-
 def clean_string(input_string:str):
     return input_string.encode('utf-8', 'replace').decode('utf-8')
 def send_task_and_receive_data(node):
@@ -26,6 +24,7 @@ def send_task_and_receive_data(node):
         if event is not None:
             while True:
                 if event is not None:
+                    print(f"aaaa {event}\n")
                     node_results = json.loads(event['value'].to_pylist()[0])
                     results = node_results.get('node_results')
                     is_dataflow_end = node_results.get('dataflow_status', False)

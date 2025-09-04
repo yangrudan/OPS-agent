@@ -15,7 +15,8 @@ def run(agent:MofaAgent, memory_agent:OPSMemoryAgent):
 
     agent_output_name = 'ops_mem_result'
     agent.send_output(agent_output_name=agent_output_name,agent_result=drug_results)
-    
+    print(f"📤 !!!!2222mem 已发送到输出节点 '{agent_output_name}'")
+        
 def main():
     agent = MofaAgent(agent_name='ops-mem')
      # 配置文件路径（确保正确）
@@ -23,5 +24,6 @@ def main():
     # 初始化OPS记忆代理
     memory_agent = OPSMemoryAgent(config_path)
     run(agent=agent, memory_agent=memory_agent)
+    
 if __name__ == "__main__":
     main()

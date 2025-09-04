@@ -93,19 +93,13 @@ class OPSMemoryAgent:
             where={"user_id": self.user_id},
             include=["documents", "metadatas", "distances"]
         )
-        # 打印原始结果（重点看documents和metadatas是否有数据）
+        #打印原始结果（重点看documents和metadatas是否有数据）
         print(f"📝 调试日志：Chroma返回原始结果：")
         print(f"  - 文档数量：{len(results['documents'][0])}")
         print(f"  - 文档内容：{results['documents'][0]}")
         print(f"  - 元数据：{results['metadatas'][0]}")
         print(f"  - 距离：{results['distances'][0]}")
         
-        # # 2. 在Chroma中搜索：过滤当前用户的记忆，按相似度排序
-        # results = self.collection.query(
-        #     query_embeddings=[query_embedding],
-        #     n_results=limit,
-        #     where={"user_id": self.user_id}  # 只搜索当前用户的记忆
-        # )
 
         # 3. 计算相似度并过滤（Chroma返回的是cosine距离，相似度=1-距离）
         formatted_results = []
@@ -124,9 +118,9 @@ class OPSMemoryAgent:
             similarity = min(similarity, 1.0)  # 避免相似度超过1
             
             # 优化2：打印计算日志，便于调试
-            print(f"📊 相似度计算：关键词'{query}' vs 记忆'{doc[:20]}...'")
-            print(f"  - cosine距离：{round(dist, 3)}")
-            print(f"  - 计算相似度：{round(similarity, 3)}（阈值：{similarity_threshold}）")
+            # print(f"📊 相似度计算：关键词'{query}' vs 记忆'{doc[:20]}...'")
+            # print(f"  - cosine距离：{round(dist, 3)}")
+            # print(f"  - 计算相似度：{round(similarity, 3)}（阈值：{similarity_threshold}）")
             
             # 阈值过滤（使用优化后的相似度）
             if similarity >= similarity_threshold:

@@ -1,0 +1,32 @@
+2025-09-04 19:36:53 - ops-scheduler - INFO - "ops-scheduler  receive  data : \u674e\u7237\u7237 \u5403\u836f  "
+🕵️  事件分类：检测到关键词，归类为 'memory' 事件
+🧠 AAAAAAAAAA处理记忆查询事件...
+sssssssssssssssssss
+
+sssssssssssssssssss  李爷爷 吃药
+
+🧠 DEBUG: 记忆查询内容： 李爷爷 吃药
+sssssssssssssssssss 2222  李爷爷 吃药
+
+2025-09-04 19:36:53 - ops-scheduler - INFO - "query  output data : {'query': '\u674e\u7237\u7237 \u5403\u836f'}  type : <class 'dict'>"
+2025-09-04 19:36:53 - ops-scheduler - INFO - "scheduler_result  output data : {'status': 'success', 'message': '\u67e5\u8be2\u5df2\u53d1\u9001\u5230ops-mem\u6a21\u5757\uff0c\u7b49\u5f85\u7ed3\u679c\u4e2d...'}  type : <class 'dict'>"
+🧠 DEBUG: 记忆查询内容： 李爷爷 吃药
+📤 !!!发送查询到ops-mem模块...
+🧠 AAAAAAAAAA记忆查询结果： {'status': 'success', 'message': '查询已发送到ops-mem模块，等待结果中...'}
+📤 !!!!!!调度结果： {'status': 'success', 'message': '查询已发送到ops-mem模块，等待结果中...'}
+🕵️  事件分类：检测到关键词，归类为 'memory' 事件
+🧠 AAAAAAAAAA处理记忆查询事件...
+sssssssssssssssssss
+
+2025-09-04 19:37:01 - ops-scheduler - INFO - "ops-scheduler  receive  data : \u7237\u7237 \u5403\u836f  "
+sssssssssssssssssss  爷爷 吃药
+
+🧠 DEBUG: 记忆查询内容： 爷爷 吃药
+sssssssssssssssssss 2222  爷爷 吃药
+
+2025-09-04 19:37:01 - ops-scheduler - INFO - "query  output data : {'query': '\u7237\u7237 \u5403\u836f'}  type : <class 'dict'>"
+2025-09-04 19:37:01 - ops-scheduler - INFO - "scheduler_result  output data : {'status': 'success', 'message': '\u67e5\u8be2\u5df2\u53d1\u9001\u5230ops-mem\u6a21\u5757\uff0c\u7b49\u5f85\u7ed3\u679c\u4e2d...'}  type : <class 'dict'>"
+🧠 DEBUG: 记忆查询内容： 爷爷 吃药
+📤 !!!发送查询到ops-mem模块...
+🧠 AAAAAAAAAA记忆查询结果： {'status': 'success', 'message': '查询已发送到ops-mem模块，等待结果中...'}
+📤 !!!!!!调度结果： {'status': 'success', 'message': '查询已发送到ops-mem模块，等待结果中...'}
