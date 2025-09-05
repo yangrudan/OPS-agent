@@ -9,12 +9,16 @@
     <div class="mermaid">
         flowchart TB
   mock-voice["**mock-voice**"]
-  ops-mem-agent["**ops-mem-agent**"]
+  ops-llm-agent["**ops-llm-agent**"]
+  ops-mem["**ops-mem**"]
   ops-scheduler["**ops-scheduler**"]
-  ops-scheduler -- scheduler_result as agent_response --> mock-voice
-  ops-scheduler -- query --> ops-mem-agent
+  ops-weather["**ops-weather**"]
+  ops-llm-agent -- llm_result as agent_response --> mock-voice
+  ops-mem -- ops_mem_result as mem_data --> ops-llm-agent
+  ops-weather -- ops_weather_result as weather_data --> ops-llm-agent
+  ops-scheduler -- query --> ops-mem
   mock-voice -- data as input_event --> ops-scheduler
-  ops-mem-agent -- ops_mem_result as mem_result --> ops-scheduler
+  ops-scheduler -- query --> ops-weather
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
