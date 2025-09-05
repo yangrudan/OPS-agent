@@ -4,11 +4,10 @@ def handle_memory_query(agent, input_event, config):
     # 1. 构造查询参数
     query = input_event
     print(f"sssssssssssssssssss  {query}\n")
-    print("🧠 000 DEBUG: 记忆查询内容：", query)
-    if not query:
-        return {"status": "error", "message": "查询内容为空"}
+    print("🧠 00000 DEBUG: 记忆查询内容：", query)
+    # if not query:
+    #     return {"status": "error", "message": "查询内容为空"}
     
-    print(f"sssssssssssssssssss  {query}\n")
     print("🧠 111 DEBUG: 记忆查询内容：", query)
     # 2. 发送查询到ops-mem模块
     print("📤 !!!发送查询到ops-mem模块...")
@@ -17,10 +16,10 @@ def handle_memory_query(agent, input_event, config):
         agent_result={"query": query}
     )
 
-    return {
-        "status": "success",
-        "message": "查询已发送到ops-mem模块，等待结果中..."
-    }
+    # return {
+    #     "status": "success",
+    #     "message": "查询已发送到ops-mem模块，等待结果中..."
+    # }
     
     # 3. 接收ops-mem返回结果
     # print("⏳ !!!等待ops-mem返回结果...")

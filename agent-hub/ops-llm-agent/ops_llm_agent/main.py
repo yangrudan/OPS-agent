@@ -106,12 +106,18 @@ def run(agent: MofaAgent):
         )
         
         # 接收用户输入
-        user_input = agent.receive_parameter('query')
-        print(f"llm get info {user_input}")
+        receive_data = agent.receive_parameters(['mem_data','weather_data'])
+        user_input = receive_data.get('mem_data')
+        print(f"llm get mem info {user_input}")
+        weather_input = receive_data.get('weather_data')
+        print(f"llm get weather info {weather_input}")
 
         # 步骤1：识别输入信息类型
         info_types = identify_info_types(user_input)
         print(f"识别到的信息类型：{info_types}")
+
+        info_types_2do = identify_info_types(weather_input)
+        print(f"识别到的222信息类型：{info_types_2do}")
 
         # 步骤2：动态生成系统提示词
         llm_content = generate_dynamic_llm_content(info_types)

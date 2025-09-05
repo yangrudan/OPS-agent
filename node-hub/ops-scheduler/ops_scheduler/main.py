@@ -31,7 +31,8 @@ def run(agent: MofaAgent):
         if event_type == "memory":
             print("🧠 !!!准备进行记忆查询事件...")
             result = handle_memory_query(agent, input_event, config)
-            print("🧠 !!!记忆查询结果：", result)
+            print("🧠 !!!记忆查询结果---：", result)
+            print("🌤️ !!!天气查询结果：", result)
         elif event_type == "weather":
             print("!!!准备进行天气查询事件...")
             result = handle_weather_query(agent, input_event, config)
