@@ -993,3 +993,57 @@ Caused by:
 
 Location:
     binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T05:54:25.110072Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-09-05T05:54:25.110188Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-09-05T05:54:25.110216Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-09-05T05:54:25.110246Z  INFO dora_daemon::node_communication: channel disconnected before register message
+2025-09-05T05:55:47.083686Z  WARN dora_daemon: ops-llm-agent was killed due to not stopping within the 15s grace period
+2025-09-05T05:55:47.084223Z  WARN dora_daemon: ops-mem was killed due to not stopping within the 15s grace period
+2025-09-05T05:55:47.084706Z  WARN dora_daemon: ops-miband was killed due to not stopping within the 15s grace period
+2025-09-05T05:55:47.085044Z  WARN dora_daemon: ops-scheduler was killed due to not stopping within the 15s grace period
+2025-09-05T05:55:47.085354Z  WARN dora_daemon: ops-weather was killed due to not stopping within the 15s grace period
+2025-09-05T05:55:47.098382Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-miband`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T05:55:47.098761Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-llm-agent`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T05:55:47.099700Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-scheduler`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T05:55:47.304655Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-weather`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T05:55:47.780964Z  WARN dora_daemon::node_communication: failed to send NextFinishedDropTokens reply: NextDropEvents([])
+
+Caused by:
+   0: failed to send reply to node `ops-mem`
+   1: failed to send DaemonReply
+   2: Broken pipe (os error 32)
+
+Location:
+    binaries/daemon/src/node_communication/tcp.rs:91:14

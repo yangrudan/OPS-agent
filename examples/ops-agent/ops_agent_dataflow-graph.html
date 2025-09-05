@@ -11,12 +11,15 @@
   mock-voice["**mock-voice**"]
   ops-llm-agent["**ops-llm-agent**"]
   ops-mem["**ops-mem**"]
+  ops-miband["**ops-miband**"]
   ops-scheduler["**ops-scheduler**"]
   ops-weather["**ops-weather**"]
   ops-llm-agent -- llm_result as agent_response --> mock-voice
   ops-mem -- ops_mem_result as mem_data --> ops-llm-agent
+  ops-miband -- miband_result as miband_data --> ops-llm-agent
   ops-weather -- ops_weather_result as weather_data --> ops-llm-agent
   ops-scheduler -- query --> ops-mem
+  ops-scheduler -- query --> ops-miband
   mock-voice -- data as input_event --> ops-scheduler
   ops-scheduler -- query --> ops-weather
 

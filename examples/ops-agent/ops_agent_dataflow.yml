@@ -30,6 +30,14 @@ nodes:
       - ops_weather_result
     inputs:
       query: ops-scheduler/query
+  
+  - id: ops-miband
+    build: pip install -e ../../agent-hub/ops-miband
+    path: ops-miband
+    outputs:
+      - miband_result
+    inputs:
+      query: ops-scheduler/query
       
   - id: ops-llm-agent
     build: pip install -e ../../agent-hub/ops-llm-agent
@@ -39,6 +47,7 @@ nodes:
     inputs:
       mem_data: ops-mem/ops_mem_result
       weather_data: ops-weather/ops_weather_result
+      miband_data: ops-miband/miband_result
     env:
      IS_DATAFLOW_END: true
      WRITE_LOG: true

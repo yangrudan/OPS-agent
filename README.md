@@ -29,6 +29,8 @@
 
 详细数据流图请参考：[OPS Agent 数据流图](./examples/ops-agent/ops_agent_dataflow-graph.html)
 
+![OPS Agent 数据流图](./docs/dataflow.png)
+
 ## 安装与使用
 
 🚀 快速开始
@@ -36,6 +38,7 @@
 ```bash
 # 准备框架
 pip install mofa-ai
+pip install bleak
 
 # 准备ops agents
 git clone https://github.com/yangrudan/OPS-agent.git

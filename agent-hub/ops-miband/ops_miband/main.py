@@ -72,7 +72,7 @@ class BLEHeartRateCollector:
 
 @run_agent
 def run(agent:MofaAgent):
-    task = agent.receive_parameter('task')
+    task = agent.receive_parameter('query')
     print(f"接收到任务: {task}")
 
     # 初始化BLE采集器

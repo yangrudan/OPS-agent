@@ -106,11 +106,14 @@ def run(agent: MofaAgent):
         )
         
         # 接收用户输入
-        receive_data = agent.receive_parameters(['mem_data','weather_data'])
+        receive_data = agent.receive_parameters(['mem_data','weather_data','miband_data'])
         user_input = receive_data.get('mem_data')
         print(f"llm get mem info {user_input}")
         weather_input = receive_data.get('weather_data')
         print(f"llm get weather info {weather_input}")
+
+        miband_input = receive_data.get('miband_data')
+        print(f"llm get weather info {miband_input}")
 
         # 步骤1：识别输入信息类型
         info_types = identify_info_types(user_input)
