@@ -1047,3 +1047,4 @@ Caused by:
 
 Location:
     binaries/daemon/src/node_communication/tcp.rs:91:14
+2025-09-05T08:23:58.223881Z  INFO dora_daemon::node_communication: channel disconnected before register message
