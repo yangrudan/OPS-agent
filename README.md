@@ -1,8 +1,10 @@
 # OPS(Old People's) Agent
 
-> 背景：toB 系列产品，旨在为老年人提供便捷、安全的智能生活体验。OPS Agent 作为其中的核心组件，致力于提升老年人的生活质量与安全性。
+> 背景：toB 系列产品，旨在为老年人提供便捷、安全的智能生活体验。OPS Agent 致力于提升老年人的生活质量与安全性。
+>
+![logo](./docs/ops-logo.jpg)
 
-OPS Agent 是基于**MOFA-ai**框架设计与打造， 专为老年人设计的智能助手，遵循成为老年人的守护者的初心，为其提供覆盖**记忆**、 **健康**、 **天气**三大类型的核心服务。
+OPS Agent 是基于[**mofa-ai**](https://github.com/mofa-org/mofa)框架设计与打造， 专为老年人设计的智能助手，遵循成为老年人的守护者的初心，为其提供覆盖**记忆**、 **健康**、 **天气**三大类型的核心服务。
 
 ## 核心功能
 
@@ -13,9 +15,9 @@ OPS Agent 是基于**MOFA-ai**框架设计与打造， 专为老年人设计的�
 ## 创新设计
 
 - **自然语言交互**：老年人可以通过语音或文字与OPS Agent进行交流，无需复杂的操作。
-- **硬件集成**：通过蓝牙各种智能硬件（如智能手表、智能手环设备等）集成(已完成与MiBand6集成), 上报健康数据 。
+- **硬件集成**：通过蓝牙BLE协议与MiBand6手环设备进行集成, 上报健康数据 。
 - **向量数据库**：应用北京智源研究院BAAI/bge模型和向量数据库存储和检索信息，确保信息的准确性和安全性。
-- **中心调度节点**：ops-scheduler 作为中心调度节点，可以与智能设备、MCP服务进行无缝对接。
+- **中心调度节点**：ops-scheduler 作为中心调度节点，可以与记忆数据库, 智能硬件设备, 天气MCP服务进行无缝对接。
 
 ## 关键数据流说明（按场景拆解）
 
@@ -24,6 +26,7 @@ OPS Agent 是基于**MOFA-ai**框架设计与打造， 专为老年人设计的�
 1. 接收用户输入（语音/文本）
 2. 分发请求到记忆/天气模块
 3. 与智能硬件设备交互
+
 详细数据流图请参考：[OPS Agent 数据流图](./examples/ops-agent/ops_agent_dataflow-graph.html)
 
 ## 安装与使用
@@ -56,13 +59,17 @@ mock-voice
 
 感谢以下项目提供的支持：
 
-- [MOFA-ai](https://github.com/mofa-ai/mofa-ai)
-- [BAAI/bge](https://github.com/baidu/bge)
+- [mofa-ai](https://github.com/mofa-org/mofa)
+- [BAAI/bge](https://huggingface.co/BAAI/bge-small-zh)
 - [MiBAND](https://github.com/mengxin239/miband4-heartrate)
+- [天气API](https://www.apispace.com/)
+
+## 贡献
+
+欢迎您的加入，共同为OPS Agent的发展贡献力量！
 
 ## 展望
 
-https://github.com/mengxin239/miband4-heartrate
 1. 支持更多外设设备接入，如智能手表、智能手环等。
 2. 支持更多场景，如健康管理、购物提醒等。
 3. 提高语音识别和自然语言处理能力，实现更智能的交互。
