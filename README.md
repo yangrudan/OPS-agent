@@ -33,7 +33,7 @@
 
 (注： 使用ASR和TTS功能, 请参考[ops-agent-asr-tts](./examples/ops-agent-asr-tts)目录, 架构图请参考：[OPS Agent ASR TTS 数据流图](./examples/ops-agent-asr-tts/ops_agent_asr_tts_dataflow-graph.html))
 
-**mock-voice**替换成**real-voice**, 实现语音输入输出功能.
+**mock-voice**替换成**real-voice[ASR + TTS]**, 实现语音输入输出功能.
 
 ![OPS Agent 数据流图](./docs/dataflow.png)
 
@@ -83,9 +83,12 @@ mock-voice
 pip install mofa-ai
 # 蓝牙BLE协议采集
 pip install bleak
-# 流式语音识别
+# asr
 pip install websocket-client==1.4.2
 pip install pyaudio
+# tts   
+pip install gradio_client
+pip install simpleaudio
 
 # 更换路径
 cd examples/ops-agent-asr-tts

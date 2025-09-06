@@ -20,6 +20,7 @@ import pyarrow as pa
 from dora import Node
 from mofa.utils.install_pkg.load_task_weaver_result import extract_important_content
 import threading
+from .tts_call.get_wav import get_and_play_wav
 
 RUNNER_CI = True if os.getenv("CI") == "true" else False
 
@@ -210,6 +211,7 @@ def send_task_and_receive_data(node):
                     step_name = node_results.get('step_name', '')
                     click.echo(f'-------------{step_name}---------------')
                     click.echo(f"{results} ", )
+                    get_and_play_wav(results)
                     click.echo(f'---------------------------------------')
                     sys.stdout.flush()
                     if is_dataflow_end in (True, 'true', 'True'):
