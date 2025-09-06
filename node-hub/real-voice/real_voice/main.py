@@ -12,14 +12,13 @@ import ssl
 from wsgiref.handlers import format_date_time
 from datetime import datetime
 from time import mktime
+from urllib.parse import urlencode
 import _thread as thread
 import pyaudio
 import click
 import pyarrow as pa
 from dora import Node
-from dotenv import load_dotenv
 from mofa.utils.install_pkg.load_task_weaver_result import extract_important_content
-from urllib.parse import urlencode 
 import threading
 
 RUNNER_CI = True if os.getenv("CI") == "true" else False
@@ -31,9 +30,10 @@ STATUS_LAST_FRAME = 2  # 最后一帧的标识
 
 class Ws_Param(object):
     def __init__(self, APPID, APIKey, APISecret):
-        self.APPID = '7c0085db'
-        self.APIKey = '171b10874c4e8b995494cb16729735d8'
-        self.APISecret = 'OWQ0ZWIyODM3MzNlNjRhNzMzMDFjNmIy'
+        print("!!!! init wsParam")
+        self.APPID = APPID
+        self.APIKey = APIKey
+        self.APISecret = APISecret
         self.CommonArgs = {"app_id": self.APPID}
         self.BusinessArgs = {"domain": "iat", "language": "zh_cn", "accent": "mandarin", "vinfo":1,"vad_eos":10000}
 
@@ -42,13 +42,9 @@ class Ws_Param(object):
         now = datetime.now()
         date = format_date_time(mktime(now.timetuple()))
 
-        signature_origin = (
-            f"host: ws-api.xfyun.cn\n"
-            f"date: {date}\n"
-            f"GET /v2/iat HTTP/1.1"
-        )
-
-        # signature_origin = f"host: ws-api.xfyun.cn\n date: {date}\n GET /v2/iat HTTP/1.1"
+        signature_origin = "host: " + "ws-api.xfyun.cn" + "\n"
+        signature_origin += "date: " + date + "\n"
+        signature_origin += "GET " + "/v2/iat " + "HTTP/1.1"
         signature_sha = hmac.new(self.APISecret.encode('utf-8'), signature_origin.encode('utf-8'),
                                  digestmod=hashlib.sha256).digest()
         signature_sha = base64.b64encode(signature_sha).decode(encoding='utf-8')
@@ -64,9 +60,10 @@ class Ws_Param(object):
         url = url + '?' + urlencode(v)
         return url
 
-# 全局变量用于存储识别结果
+# 全局变量
 recognized_text = ""
 is_recognition_complete = False
+wsParam = None  # 全局wsParam变量
 
 def on_message(ws, message):
     global recognized_text, is_recognition_complete
@@ -84,7 +81,6 @@ def on_message(ws, message):
                 for w in i["cw"]:
                     result += w["w"]
             
-            # 过滤无效结果
             if result not in ['。', '.。', ' .。', ' 。']:
                 recognized_text += result
                 print(f"识别结果: {result}")
@@ -97,13 +93,17 @@ def on_error(ws, error):
 def on_close(ws, code, reason):
     global is_recognition_complete
     is_recognition_complete = True
-    # 打印关闭信息，帮助排查问题
     print(f"### 连接已关闭 ###")
     print(f"  状态码: {code}")
-    print(f"  原因: {reason.decode('utf-8') if reason else '无'}")  # reason 是 bytes 类型，需解码
+    # 修复：reason可能是字符串或bytes，统一处理
+    if isinstance(reason, bytes):
+        print(f"  原因: {reason.decode('utf-8')}")
+    else:
+        print(f"  原因: {reason}")
 
 def on_open(ws):
-    def run(*args):
+    # 嵌套函数中使用nonlocal声明，访问外层的ws_param
+    def run(ws_param):
         status = STATUS_FIRST_FRAME
         CHUNK = 520
         FORMAT = pyaudio.paInt16
@@ -125,8 +125,9 @@ def on_open(ws):
                 status = STATUS_LAST_FRAME
             
             if status == STATUS_FIRST_FRAME:
-                d = {"common": wsParam.CommonArgs,
-                     "business": wsParam.BusinessArgs,
+                # 使用传入的ws_param而非全局变量
+                d = {"common": ws_param.CommonArgs,
+                     "business": ws_param.BusinessArgs,
                      "data": {"status": 0, "format": "audio/L16;rate=16000",
                               "audio": str(base64.b64encode(buf), 'utf-8'),
                               "encoding": "raw"}}
@@ -149,20 +150,21 @@ def on_open(ws):
         stream.close()
         p.terminate()
         ws.close()
-    thread.start_new_thread(run, ())
+    
+    # 启动线程时传入当前的wsParam
+    global wsParam
+    thread.start_new_thread(run, (wsParam,))
 
 def start_voice_recognition():
-    global recognized_text, is_recognition_complete
+    global recognized_text, is_recognition_complete, wsParam
     recognized_text = ""
     is_recognition_complete = False
     
-    load_dotenv('.env.secret')
-
-    # 请替换为你的实际参数
+    # 替换为你的实际参数
     wsParam = Ws_Param(
-        APPID=os.getenv('XUNFEI_APPID'), 
-        APIKey=os.getenv('XUNFEI_API_KEY'),
-        APISecret=os.getenv('XUNFEI_API_SECRET')
+        APPID='7c0085db', 
+        APIKey='171b10874c4e8b995494cb16729735d8',
+        APISecret='OWQ0ZWIyODM3MzNlNjRhNzMzMDFjNmIy'
     )
     
     websocket.enableTrace(False)
@@ -174,7 +176,6 @@ def start_voice_recognition():
     ws.on_open = on_open
     ws.run_forever(sslopt={"cert_reqs": ssl.CERT_NONE}, ping_timeout=2)
     
-    # 等待识别完成
     while not is_recognition_complete:
         time.sleep(0.1)
     
@@ -187,7 +188,6 @@ def send_task_and_receive_data(node):
     TIMEOUT = 300
     while True:
         print("请说话，开始录音...")
-        # 获取语音识别结果
         data = start_voice_recognition()
         
         if not data:
@@ -243,3 +243,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
