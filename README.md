@@ -46,8 +46,6 @@
 pip install mofa-ai
 # 蓝牙BLE协议采集
 pip install bleak
-# 流式语音识别
-pip install websocket-client==1.4.2
 
 # 准备ops agents
 git clone https://github.com/yangrudan/OPS-agent.git
@@ -68,6 +66,29 @@ mock-voice
 ### v0.2 VAD+ASR+TTS版本
 
 总体流程与v0.1版本一致, 增加语音识别和语音合成功能, 实现语音输入输出.
+
+```bash
+# 准备框架
+pip install mofa-ai
+# 蓝牙BLE协议采集
+pip install bleak
+# 流式语音识别
+pip install websocket-client==1.4.2
+pip install pyaudio
+
+# 更换路径
+cd examples/ops-agent-asr-tts
+
+# 启动
+dora up
+dora build ops_agent_asr_tts_dataflow.yml
+dora start ops_agent_asr_tts_dataflow.yml
+```
+
+运行结果
+
+![运行结果](./docs/mock-voice-v0.2.png)
+
 
 ## 难点和突破
 
@@ -94,6 +115,14 @@ mock-voice
 **解决方式3**: 采用讯飞开放平台提供的语音识别服务
 
 [解决方式3](./docs/challenge/A3.png)
+
+**问题4**: 使用pyaudio找不到GLIBC
+
+[问题4](./docs/challenge/Q4.png)
+
+**解决方式4**: 检查系统环境, 更新软链接
+
+[解决方式4](./docs/challenge/A4.png)
 
 ## 感谢
 
