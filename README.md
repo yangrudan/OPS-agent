@@ -33,11 +33,13 @@
 
 (注： 使用ASR和TTS功能, 请参考[ops-agent-asr-tts](./examples/ops-agent-asr-tts)目录, 架构图请参考：[OPS Agent ASR TTS 数据流图](./examples/ops-agent-asr-tts/ops_agent_asr_tts_dataflow-graph.html))
 
+**mock-voice**替换成**real-voice**, 实现语音输入输出功能.
+
 ![OPS Agent 数据流图](./docs/dataflow.png)
 
 ## 安装与使用
 
-### v0.1 模拟语音输入输出版本
+### v0.1 终端输入输出版本(模拟语音)
 
 🚀 快速开始
 
@@ -51,7 +53,14 @@ pip install bleak
 
 # 准备ops agents
 git clone https://github.com/yangrudan/OPS-agent.git
+git checkout release/mock-voice
 cd examples/ops-agent
+
+# 配置.env.secret文件(内容如下)
+# LLM_API_KEY=sk-xxxx
+# LLM_API_BASE=https://api.moonshot.cn/v1
+# LLM_MODEL=moonshot-v1-32k
+
 dora up
 dora build ops_agent_dataflow.yml
 dora start ops_agent_dataflow.yml
@@ -107,7 +116,9 @@ dora start ops_agent_asr_tts_dataflow.yml
 
 [问题2](./docs/challenge/Q2.png)
 
-**解决方式2**: 基于一些模糊的表达, 动态调整阈值(todo)
+**解决方式2**: 基于一些模糊的表达, 动态调整阈值(demo自测ok, 待整合到agents)
+
+[解决方式2](./docs/challenge/A2.png)
 
 **问题3**: 本地基于CPU侧部署的FunASR的speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-online
 模型的语音识别不准确, "你好"会识别成"杭", 有时候未识别.
