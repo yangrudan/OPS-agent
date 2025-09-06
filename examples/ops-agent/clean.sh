@@ -19,4 +19,6 @@ pip uninstall -y ops-llm-agent --no-cache-dir
 
 pip uninstall -y ops-weather --no-cache-dir
 
+pip uninstall -y ops-miband --no-cache-dir
+
 pip cache purge

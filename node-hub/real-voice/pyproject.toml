@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "real-voice"
+version = "0.0.1"
+authors = [
+    "Cookie Yang <1549029765@qq.com>",
+]
+description = "Dora real voice"
+license = "MIT License"
+homepage = "https://github.com/dora-rs/dora.git"
+documentation = "https://github.com/yangrudan/OPS-agent"
+readme = "README.md"
+packages = [{ include = "real_voice" }]
+
+[tool.poetry.dependencies]
+numpy = "< 2.0.0"
+pyarrow = ">= 5.0.0"
+
+[tool.poetry.scripts]
+real-voice = "real_voice.main:main"
+
+[build-system]
+requires = ["poetry-core>=1.8.0"]
+build-backend = "poetry.core.masonry.api"
+
+#[project]
+#readme = "README.md"
