@@ -84,6 +84,8 @@ def on_message(ws, message):
             if result not in ['。', '.。', ' .。', ' 。']:
                 recognized_text += result
                 print(f"识别结果: {result}")
+                global is_recognition_complete
+                is_recognition_complete = True
     except Exception as e:
         print(f"接收消息解析异常: {e}")
 
@@ -213,6 +215,8 @@ def send_task_and_receive_data(node):
                     if is_dataflow_end in (True, 'true', 'True'):
                         break
                     event = node.next(timeout=TIMEOUT)
+                else:
+                    time.sleep(1)
 
 def main():
     parser = argparse.ArgumentParser(description="Simple arrow sender with voice input")
