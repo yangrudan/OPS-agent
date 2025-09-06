@@ -31,6 +31,8 @@
 
 详细数据流图请参考：[OPS Agent 数据流图](./examples/ops-agent/ops_agent_dataflow-graph.html)
 
+(注： 使用ASR和TTS功能, 请参考[ops-agent-asr-tts](./examples/ops-agent-asr-tts)目录, 架构图请参考：[OPS Agent ASR TTS 数据流图](./examples/ops-agent-asr-tts/ops_agent_asr_tts_dataflow-graph.html))
+
 ![OPS Agent 数据流图](./docs/dataflow.png)
 
 ## 安装与使用
@@ -89,7 +91,6 @@ dora start ops_agent_asr_tts_dataflow.yml
 
 ![运行结果](./docs/mock-voice-v0.2.png)
 
-
 ## 难点和突破
 
 **问题1**: 开启蓝牙广播后, 小米手环获取心率数据为0xff(255)
@@ -136,6 +137,7 @@ dora start ops_agent_asr_tts_dataflow.yml
 - [讯飞开放平台](https://console.xfyun.cn/services/new_rta)
 - [阿里巴巴语音识别 FunASR](https://pypi.org/project/funasr/)
 - [ChatTTS](https://github.com/2noise/ChatTTS)
+- [趋动云](https://platform.virtaicloud.com/gemini_web/workspace/space/sojyinibvij5/project/619388891229278208/jupyter?type=terminal)
 
 ## 贡献
 
