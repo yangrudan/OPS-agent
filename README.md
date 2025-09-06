@@ -108,7 +108,8 @@ dora start ops_agent_asr_tts_dataflow.yml
 
 **解决方式2**: 基于一些模糊的表达, 动态调整阈值(todo)
 
-**问题3**: 本地基于CPU侧部署的FunASR模型的语音识别不准确, "你好"会识别成"杭", 有时候未识别.
+**问题3**: 本地基于CPU侧部署的FunASR的speech_paraformer-large_asr_nat-zh-cn-16k-common-vocab8404-online
+模型的语音识别不准确, "你好"会识别成"杭", 有时候未识别.
 
 [问题3](./docs/challenge/Q3.png)
 
@@ -116,7 +117,7 @@ dora start ops_agent_asr_tts_dataflow.yml
 
 [解决方式3](./docs/challenge/A3.png)
 
-**问题4**: 使用pyaudio找不到GLIBC
+**问题4**: 调试语音输入功能, 提示错误, 使用pyaudio找不到GLIBC
 
 [问题4](./docs/challenge/Q4.png)
 
@@ -134,6 +135,7 @@ dora start ops_agent_asr_tts_dataflow.yml
 - [天气API](https://www.apispace.com/)
 - [讯飞开放平台](https://console.xfyun.cn/services/new_rta)
 - [阿里巴巴语音识别 FunASR](https://pypi.org/project/funasr/)
+- [ChatTTS](https://github.com/2noise/ChatTTS)
 
 ## 贡献
 
