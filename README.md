@@ -81,6 +81,8 @@ mock-voice
 ```bash
 # 准备框架
 pip install mofa-ai
+# 数据库
+pip install sentence_transformers
 # 蓝牙BLE协议采集
 pip install bleak
 # asr

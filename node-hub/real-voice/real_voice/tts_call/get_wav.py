@@ -34,7 +34,7 @@ def arabic_to_chinese_num(text: str) -> str:
     return text
 
 def get_raw_wav(text):
-    client = Client("https://e73906e52bf739b726.gradio.live/")
+    client = Client("https://8e65ccc85a1237ad13.gradio.live/")
     clear_text = arabic_to_chinese_num(text)
     print(f"clear_text: {clear_text}\n")
     result = client.predict(
@@ -56,6 +56,7 @@ def get_raw_wav(text):
         print("这不是一个WAV文件路径")
 
     print(f"wav_path: {wav_path}")
+    return wav_path
 
 def play_wav(file_path):
     wave_obj = sa.WaveObject.from_wave_file(file_path)
@@ -67,8 +68,8 @@ def play_wav(file_path):
 def get_and_play_wav(text):
     wav_path = get_raw_wav(text)
     print(f"!!wav_path: {wav_path}")
-    time.sleep(3)  # 确保文件已保存
-    play_wav(wav_path)
+    # time.sleep(3)  # 确保文件已保存
+    play_wav(str(wav_path))
 
 if __name__ == "__main__":
     test_text = "爷爷奶奶们，记得哦，您每天早上8点要按时吃药，每次就吃1片，要在吃完饭后服用。这样对身体好，别忘啦！"

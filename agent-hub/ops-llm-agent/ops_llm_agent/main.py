@@ -20,7 +20,7 @@ def identify_info_types(user_input):
         info_types.append("天气")
     
     # 3. 匹配「安全警报信息」关键词（如居家安全、紧急情况等）
-    safety_keywords = ["警报", "安全", "漏水", "漏气", "摔倒", "紧急", "求助", "异常", "火灾", "盗窃"]
+    safety_keywords = ["警报", "安全", "漏水", "漏气", "心率", "步数","摔倒", "紧急", "求助", "异常", "火灾", "盗窃"]
     if any(keyword in user_input for keyword in safety_keywords):
         info_types.append("安全警报")
     
@@ -116,12 +116,18 @@ def run(agent: MofaAgent):
         print(f"llm get weather info {miband_input}")
 
         # 步骤1：识别输入信息类型
-        info_types = identify_info_types(user_input)
-        print(f"识别到的信息类型：{info_types}")
+        info_type = identify_info_types(user_input)
+        print(f"识别到的信息类型：{info_type}")
 
         info_types_2do = identify_info_types(weather_input)
         print(f"识别到的222信息类型：{info_types_2do}")
 
+        ###########################
+        all_inputs = f"{user_input},{weather_input},{miband_input}"
+        
+        # 识别所有信息类型
+        info_types = identify_info_types(all_inputs)
+        ################################################
         # 步骤2：动态生成系统提示词
         llm_content = generate_dynamic_llm_content(info_types)
         print(f"动态生成的 llm_content：\n{llm_content}")
