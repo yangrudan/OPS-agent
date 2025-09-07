@@ -3,7 +3,7 @@ def handle_memory_query(agent, input_event, config):
     print("sssssssssssssssssss\n")
     # 1. 构造查询参数
     query = input_event
-    print(f"sssssssssssssssssss  {query}\n")
+    # print(f"sssssssssssssssssss  {query}\n")
     print("🧠 00000 DEBUG: 记忆查询内容：", query)
     # if not query:
     #     return {"status": "error", "message": "查询内容为空"}

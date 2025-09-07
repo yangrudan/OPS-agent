@@ -1,0 +1,53 @@
+nodes:
+  - id: real-voice
+    build: pip install -e ../../node-hub/real-voice
+    path: dynamic
+    outputs:
+      - data
+    inputs:
+      agent_response: ops-llm-agent/llm_result
+
+  - id: ops-scheduler
+    build: pip install -e ../../node-hub/ops-scheduler
+    path: ops-scheduler
+    outputs:
+      - query  # 输出查询到记忆模块
+    inputs:
+      input_event: real-voice/data  # 接收模拟语音输入
+
+  - id: ops-mem
+    build: pip install -e ../../agent-hub/ops-mem
+    path: ops-mem
+    outputs:
+      - ops_mem_result
+    inputs:
+      query: ops-scheduler/query
+  
+  - id: ops-weather
+    build: pip install -e ../../agent-hub/ops-weather
+    path: ops-weather
+    outputs:
+      - ops_weather_result
+    inputs:
+      query: ops-scheduler/query
+  
+  - id: ops-miband
+    build: pip install -e ../../agent-hub/ops-miband
+    path: ops-miband
+    outputs:
+      - miband_result
+    inputs:
+      query: ops-scheduler/query
+      
+  - id: ops-llm-agent
+    build: pip install -e ../../agent-hub/ops-llm-agent
+    path: ops-llm-agent
+    outputs:
+     - llm_result
+    inputs:
+      mem_data: ops-mem/ops_mem_result
+      weather_data: ops-weather/ops_weather_result
+      miband_data: ops-miband/miband_result
+    env:
+     IS_DATAFLOW_END: true
+     WRITE_LOG: true
