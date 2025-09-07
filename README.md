@@ -103,7 +103,40 @@ dora start ops_agent_asr_tts_dataflow.yml
 
 运行结果
 
-![运行结果](./docs/mock-voice-v0.2.png)
+![运行结果](./docs/real-voice-v0.2.png)
+
+## 开发者指南
+
+OPS Agent目前包括7个agent,  目录结构如下, 可以陆续扩展更多的agent模块:
+
+```bash
+./
+├── agent-hub
+│   ├── ops-llm-agent  # 大模型整合信息
+│   ├── ops-mem  # 记忆模块(记忆的存储和搜索)
+│   ├── ops-miband  # 小米手环心率获取
+│   └── ops-weather  # 根据经纬度获取对应的天气信息
+├── docs # 文档资料
+│   ├── challenge
+│   ├── clean.md
+│   ├── dataflow.png
+│   ├── mock-voice-v0.1.png
+│   ├── ops-logo.jpg
+│   ├── ops-scheduler.md
+│   └── tts_service.png
+├── examples
+│   ├── ops-agent # mock-voice数据流运行目录
+│   ├── ops-agent-asr-tts # real-voice数据流运行目录
+│   └── test_llm
+├── node-hub
+│   ├── mock-voice  # 终端模拟语音输入输出
+│   ├── ops-scheduler # 调度模块
+│   └── real-voice  # ASR TTS 实时语音输入输出
+├── out
+│   ├── dora-coordinator.txt
+│   └── dora-daemon.txt
+└── README.md
+```
 
 ## 难点和突破
 
