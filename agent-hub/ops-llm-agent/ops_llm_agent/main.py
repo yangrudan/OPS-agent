@@ -22,7 +22,7 @@ def identify_info_types(user_input):
         info_types.append("天气")
     
     # 3. 匹配「安全警报信息」关键词（如居家安全、紧急情况等）
-    safety_keywords = ["警报", "安全", "漏水", "漏气", "摔倒", "紧急", "求助", "异常", "火灾", "盗窃"]
+    safety_keywords = ["心率", "警报", "安全", "漏水", "漏气", "摔倒", "紧急", "求助", "异常", "火灾", "盗窃"]
     if any(keyword in user_input for keyword in safety_keywords):
         info_types.append("安全警报")
     
