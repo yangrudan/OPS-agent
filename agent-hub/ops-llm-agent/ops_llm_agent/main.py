@@ -113,14 +113,16 @@ def run(agent: MofaAgent):
         print(f"llm get weather info {weather_input}")
 
         miband_input = receive_data.get('miband_data')
-        print(f"llm get weather info {miband_input}")
+        print(f"llm get miband info {miband_input}")
 
-        # 步骤1：识别输入信息类型
-        info_types = identify_info_types(user_input)
-        print(f"识别到的信息类型：{info_types}")
+        # # 步骤1：识别输入信息类型
+        # info_types = identify_info_types(user_input)
+        # print(f"识别到的信息类型：{info_types}")
 
-        info_types_2do = identify_info_types(weather_input)
-        print(f"识别到的222信息类型：{info_types_2do}")
+        # info_types_2do = identify_info_types(weather_input)
+        # print(f"识别到的222信息类型：{info_types_2do}")
+
+        info_types = identify_info_types(user_input + " " + weather_input + " " + miband_input)
 
         # 步骤2：动态生成系统提示词
         llm_content = generate_dynamic_llm_content(info_types)
