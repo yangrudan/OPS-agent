@@ -106,7 +106,7 @@ def run(agent:MofaAgent):
         if not device_available:
             print("设备不可用，终止程序")
             agent.send_output(
-                agent_output_name='heart_rate_result',
+                agent_output_name='miband_result',
                 agent_result={
                     'error': '设备不可用',
                     'device': TARGET_DEVICE
