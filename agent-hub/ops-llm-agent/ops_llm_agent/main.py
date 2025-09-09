@@ -1,7 +1,9 @@
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from openai import OpenAI
 import os
-from dotenv import load_dotenv
+
+from .multi_llm import choice_and_run_llm_model
+
 
 def identify_info_types(user_input):
     """
@@ -96,15 +98,6 @@ def generate_dynamic_llm_content(info_types):
 @run_agent
 def run(agent: MofaAgent):
     try:
-        # 加载环境变量
-        load_dotenv('.env.secret')
-        
-        # 初始化 OpenAI 客户端
-        client = OpenAI(
-            api_key=os.getenv('LLM_API_KEY'),
-            base_url=os.getenv('LLM_API_BASE')
-        )
-        
         # 接收用户输入
         receive_data = agent.receive_parameters(['mem_data','weather_data','miband_data'])
         user_input = receive_data.get('mem_data')
@@ -130,19 +123,12 @@ def run(agent: MofaAgent):
         print(f"动态生成的 llm_content：\n{llm_content}")
 
         # 步骤3：调用 LLM（与原代码一致）
-        response = client.chat.completions.create(
-            model=os.getenv('LLM_MODEL', 'gpt-3.5-turbo'),
-            messages=[
-                {"role": "system", "content": llm_content},
-                {"role": "user", "content": user_input}
-            ],
-            stream=False
-        )
+        response = choice_and_run_llm_model(llm_content, user_input + " " + weather_input + " " + miband_input)
         
         # 发送输出
         agent.send_output(
             agent_output_name='llm_result',
-            agent_result=response.choices[0].message.content
+            agent_result=response
         )
         
     except Exception as e:
