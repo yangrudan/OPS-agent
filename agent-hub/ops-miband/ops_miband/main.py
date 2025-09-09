@@ -1,12 +1,16 @@
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 import asyncio
 from bleak import BleakScanner, BLEDevice
+import async_timeout
+
 
 # BLE设备配置
 TARGET_DEVICE = "C5:CC:7D:AC:31:C2"
 SAVE_TO_FILENAME = "heart_rate_data.txt"
 SCAN_INTERVAL = 1 # 采集间隔（秒）
 COLLECT_COUNT = 5   # 采集次数
+DEVICE_DISCOVERY_TIMEOUT = 10  # 设备发现超时时间（秒）
+
 
 class BLEHeartRateCollector:
     def __init__(self):
@@ -14,6 +18,21 @@ class BLEHeartRateCollector:
         self.scanner = None
         self.running = False
         self.collect_count = 0  # 已采集次数计数器
+    async def check_device_available(self):
+        """检查目标设备是否可用"""
+        print(f"正在查找设备 {TARGET_DEVICE}...")
+        try:
+            async with async_timeout.timeout(DEVICE_DISCOVERY_TIMEOUT):
+                devices = await BleakScanner.discover()
+                for device in devices:
+                    if device.address == TARGET_DEVICE:
+                        print(f"找到目标设备: {TARGET_DEVICE}")
+                        return True
+                print(f"未找到目标设备: {TARGET_DEVICE}")
+                return False
+        except asyncio.TimeoutError:
+            print(f"设备查找超时({DEVICE_DISCOVERY_TIMEOUT}秒)，未找到设备: {TARGET_DEVICE}")
+            return False
 
     def callback(self, sender: BLEDevice, advertisement_data):
         """BLE设备广播数据回调函数"""
@@ -81,6 +100,19 @@ def run(agent:MofaAgent):
     try:
         # 启动事件循环
         loop = asyncio.get_event_loop()
+
+        # 首先检查设备是否可用
+        device_available = loop.run_until_complete(collector.check_device_available())
+        if not device_available:
+            print("设备不可用，终止程序")
+            agent.send_output(
+                agent_output_name='heart_rate_result',
+                agent_result={
+                    'error': '设备不可用',
+                    'device': TARGET_DEVICE
+                }
+            )
+            return
         
         # 启动扫描和周期性采集
         loop.run_until_complete(collector.start_scanning())
