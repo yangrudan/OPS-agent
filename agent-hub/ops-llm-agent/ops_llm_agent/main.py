@@ -91,6 +91,8 @@ def generate_dynamic_llm_content(info_types):
         2. 其次放“用药提醒”（按时吃药很重要）；
         3. 最后放“天气建议”；
         4. 各部分用“先说说XX事哦”“再提醒你XX”过渡，让内容连贯不生硬。
+
+        注意, 请保证输出尽可能简短, 简洁明了, 避免冗长复杂的句子, 总长度控制30字内。
         """
     
     return dynamic_content.strip()  # 去除多余空格，保持提示词简洁

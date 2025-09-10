@@ -2,6 +2,7 @@
 from mofa.agent_build.base.base_agent import MofaAgent, run_agent
 from .handlers.memory import handle_memory_query
 from .handlers.weather import handle_weather_query
+from .handlers.llm_dialog import handle_llm_dialog
 # from .handlers.safe import handle_safety_alert
 # from .handlers.llm_dialog import LLMHandler 
 import yaml
@@ -41,7 +42,7 @@ def run(agent: MofaAgent):
             # result = handle_safety_alert(agent, input_event, config)
         else:
             # 未知类型调用LLM处理
-            # result = llm_handler.handle_dialog(input_event)
+            result = handle_llm_dialog(agent, input_event)
             # TODO
             # 补充LLM处理标记
             result["source"] = "llm_dialog"
@@ -61,7 +62,7 @@ def classify_event(input_event):
         input_event = {"content": input_event}  # 转为 {"content": "李爷爷 吃药时间"}
     
     keywords = {
-        "memory": ["记得", "忘记", "时间", "电话", "生日","吃药"],  # "时间" 属于 memory 分类
+        "memory": ["记得", "忘记", "时间", "电话", "生日","吃药", "家人", "爱好"],  # "时间" 属于 memory 分类
         "weather": ["天气", "温度", "下雨", "晴天", "出门"],
         "safety": ["血压", "紧急", "求助", "摔倒", "异常"]
     }

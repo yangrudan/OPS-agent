@@ -2,6 +2,19 @@ from gradio_client import Client
 import simpleaudio as sa
 import time
 
+def clean_text_for_tts(input_text):
+    # 定义需要过滤或替换的无效字符
+    invalid_chars = {'/', '℃', '\n'}
+    # 替换或删除无效字符（根据需求调整策略）
+    cleaned_text = input_text
+    for char in invalid_chars:
+        if char == '\n':
+            cleaned_text = cleaned_text.replace(char, '。')  # 换行符替换为中文句号（保证断句自然）
+        elif char == '℃':
+            cleaned_text = cleaned_text.replace(char, '摄氏度')  # 符号替换为文字（确保正确发音）
+        else:
+            cleaned_text = cleaned_text.replace(char, '')  # 其他字符直接删除
+    return cleaned_text
 
 def arabic_to_chinese_num(text: str) -> str:
     """
@@ -24,7 +37,10 @@ def arabic_to_chinese_num(text: str) -> str:
         '6': '六',
         '7': '七',
         '8': '八',
-        '9': '九'
+        '9': '九',
+        '.': '点',
+        '-': '到',
+        '%': '百分比'
     }
     
     # 遍历映射表，逐个替换字符串中的阿拉伯数字
@@ -36,14 +52,15 @@ def arabic_to_chinese_num(text: str) -> str:
 def get_raw_wav(text):
     try:
         # 尝试创建客户端连接
-        client = Client("https://b8c48ae070eb82a207.gradio.live/")
+        client = Client("https://cb94260a5a0726758c.gradio.live/")
     except Exception as e:
         print(f"无法连接到服务: {str(e)}")
         print("可能的原因：服务未启动、网络问题或URL错误")
         return None
 
     try:
-        clear_text = arabic_to_chinese_num(text)
+        clear_text_0 = arabic_to_chinese_num(text)
+        clear_text = clean_text_for_tts(clear_text_0)
         print(f"clear_text: {clear_text}\n")
         
         # 尝试调用服务生成音频
