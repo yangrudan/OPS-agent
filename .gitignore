@@ -24,6 +24,9 @@ examples/**/logs/*
 # 忽略测试相关的输出目录
 examples/test_llm/out/
 
+# 忽略所有 __pycache__ 目录
+__pycache__/
+
 # 如果你还有其他特定的调试或临时文件目录，也可以添加
 # 比如 node-hub 下可能的临时文件等，可根据实际情况补充
 # node-hub/**/tmp/
