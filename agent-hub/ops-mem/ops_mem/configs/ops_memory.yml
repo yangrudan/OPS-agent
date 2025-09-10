@@ -3,8 +3,8 @@ agent:
   vector_store:
     config:
       collection_name: "ops-memory"  # Chroma集合名
-      path: "/home/yang/worksapce/AIOS/agent-hub/my-mem/my_mem/local_ops_db" 
+      path: "/home/yang/worksapce/OPS-agent/agent-hub/ops-mem/ops_mem/local_ops_db" 
   # 嵌入器配置（直接给sentence-transformers用）
   embedder:
     config:
-      model: "BAAI/bge-small-zh-v1.5"  # 中文嵌入模型名
+      model: "/home/yang/.cache/huggingface/hub/models--BAAI--bge-small-zh-v1.5/snapshots/7999e1d3359715c523056ef9478215996d62a620"

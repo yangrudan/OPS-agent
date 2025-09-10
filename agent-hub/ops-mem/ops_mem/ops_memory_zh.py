@@ -1,5 +1,7 @@
 import os
 import json
+import signal
+import sys
 import time
 import chromadb  # 直接使用chromadb原生库
 from dotenv import load_dotenv
@@ -14,13 +16,26 @@ class OPSMemoryAgent:
         self._load_env()
 
         # 1. 初始化中文嵌入模型（直接用sentence-transformers，不依赖mem0）
+        print("🔍 开始初始化中文嵌入模型...")
         self.embed_model = self._init_embed_model()
+        print("✅ 中文嵌入模型初始化成功")
 
         # 2. 初始化Chroma向量库（直接用chromadb原生API，不依赖mem0）
         self.chroma_client, self.collection = self._init_chroma()
 
         # 初始化MOFA代理
         # self.agent = MofaAgent(agent_name='ops-memory-agent')
+
+        signal.signal(signal.SIGINT, self._handle_exit)  # 处理ctrl+C
+        signal.signal(signal.SIGTERM, self._handle_exit)
+    
+    def _handle_exit(self, signum, frame):
+        """优雅退出，确保Chroma客户端关闭"""
+        print("\n开始优雅退出，释放资源...")
+        if hasattr(self, 'chroma_client'):
+            # Chroma客户端没有显式close方法，但可以通过删除引用触发清理
+            del self.chroma_client
+        sys.exit(0)
 
     def _load_env(self):
         load_dotenv('ops.env')
@@ -31,17 +46,25 @@ class OPSMemoryAgent:
 
     def _init_embed_model(self):
         """初始化中文嵌入模型（BAAI/bge-small-zh-v1.5）"""
+        # cache_dir = os.path.expanduser("/home/yang/.cache/huggingface/hub/")
+
         model_name = self.yml_config["embedder"]["config"]["model"]
         # 直接加载本地模型（首次运行自动下载到~/.cache/huggingface）
+        # return SentenceTransformer(model_name, device="cpu", cache_folder=cache_dir)  # 强制CPU运行
         return SentenceTransformer(model_name, device="cpu")  # 强制CPU运行
 
     def _init_chroma(self):
         """直接初始化Chroma客户端和集合（绕开mem0）"""
         # 1. 创建Chroma持久化客户端（数据存在本地路径）
+        print(f"🔍 开始初始化Chroma，路径：{self.chroma_path}，集合名：{self.collection_name}")
+
+        print("   - 正在创建PersistentClient...")
         client = chromadb.PersistentClient(path=self.chroma_path)
+        print("   - PersistentClient创建成功")
         
         # 2. 获取或创建集合（若不存在则自动创建）
         # 注意：不指定embedding_function，后续手动传入向量
+        print("   - 正在获取/创建集合...")
         collection = client.get_or_create_collection(
             name=self.collection_name,
             metadata={"description": "OPS项目老年人记忆存储集合"}
