@@ -34,29 +34,81 @@ def arabic_to_chinese_num(text: str) -> str:
     return text
 
 def get_raw_wav(text):
-    client = Client("https://b8c48ae070eb82a207.gradio.live/")
-    clear_text = arabic_to_chinese_num(text)
-    print(f"clear_text: {clear_text}\n")
-    result = client.predict(
-		clear_text,	# str  in 'Input Text' Textbox component
-		0.3,	# float (numeric value between 1e-05 and 1.0) in 'Audio temperature' Slider component
-		0.7,	# float (numeric value between 0.1 and 0.9) in 'top_P' Slider component
-		20,	# float (numeric value between 1 and 20) in 'top_K' Slider component
-		2,	# float  in 'Audio Seed' Number component
-		42,	# float  in 'Text Seed' Number component
-		True,	# bool  in 'Refine text' Checkbox component
-							api_name="/generate_audio"
-    )
+    try:
+        # 尝试创建客户端连接
+        client = Client("https://b8c48ae070eb82a207.gradio.live/")
+    except Exception as e:
+        print(f"无法连接到服务: {str(e)}")
+        print("可能的原因：服务未启动、网络问题或URL错误")
+        return None
 
-    print(result)
-    wav_path = result[0]
-    if wav_path.endswith('.wav'):
-        print("这是一个有效的WAV文件路径")
-    else:
-        print("这不是一个WAV文件路径")
+    try:
+        clear_text = arabic_to_chinese_num(text)
+        print(f"clear_text: {clear_text}\n")
+        
+        # 尝试调用服务生成音频
+        result = client.predict(
+            clear_text,	# str  in 'Input Text' Textbox component
+            0.3,	# float (numeric value between 1e-05 and 1.0) in 'Audio temperature' Slider component
+            0.7,	# float (numeric value between 0.1 and 0.9) in 'top_P' Slider component
+            20,	# float (numeric value between 1 and 20) in 'top_K' Slider component
+            2,	# float  in 'Audio Seed' Number component
+            42,	# float  in 'Text Seed' Number component
+            True,	# bool  in 'Refine text' Checkbox component
+                            api_name="/generate_audio"
+        )
 
-    print(f"wav_path: {wav_path}")
-    return wav_path
+        print(result)
+        
+        # 检查结果是否有效
+        if not result or len(result) == 0:
+            print("服务返回空结果，可能服务不可用")
+            return None
+            
+        wav_path = result[0]
+        
+        if wav_path.endswith('.wav'):
+            print("这是一个有效的WAV文件路径")
+        else:
+            print("这不是一个WAV文件路径")
+            # 检查是否包含服务错误信息
+            if "无此服务" in str(wav_path) or "服务不可用" in str(wav_path):
+                print(f"服务错误: {wav_path}")
+                return None
+
+        print(f"wav_path: {wav_path}")
+        return wav_path
+        
+    except Exception as e:
+        print(f"调用服务时发生错误: {str(e)}")
+        print("可能的原因：服务暂时不可用、API变更或参数错误")
+        return None
+
+
+# def get_raw_wav(text):
+#     client = Client("https://b8c48ae070eb82a207.gradio.live/")
+#     clear_text = arabic_to_chinese_num(text)
+#     print(f"clear_text: {clear_text}\n")
+#     result = client.predict(
+# 		clear_text,	# str  in 'Input Text' Textbox component
+# 		0.3,	# float (numeric value between 1e-05 and 1.0) in 'Audio temperature' Slider component
+# 		0.7,	# float (numeric value between 0.1 and 0.9) in 'top_P' Slider component
+# 		20,	# float (numeric value between 1 and 20) in 'top_K' Slider component
+# 		2,	# float  in 'Audio Seed' Number component
+# 		42,	# float  in 'Text Seed' Number component
+# 		True,	# bool  in 'Refine text' Checkbox component
+# 							api_name="/generate_audio"
+#     )
+
+#     print(result)
+#     wav_path = result[0]
+#     if wav_path.endswith('.wav'):
+#         print("这是一个有效的WAV文件路径")
+#     else:
+#         print("这不是一个WAV文件路径")
+
+#     print(f"wav_path: {wav_path}")
+#     return wav_path
 
 def play_wav(file_path):
     wave_obj = sa.WaveObject.from_wave_file(file_path)
@@ -66,8 +118,16 @@ def play_wav(file_path):
     play_obj.wait_done()
 
 def get_and_play_wav(text):
+    if "401" in text:
+        print("检测到 401 错误")
+        return
+    
     wav_path = get_raw_wav(text)
     print(f"!!wav_path: {wav_path}")
+
+    if wav_path is None:
+        print("无法获取WAV文件")
+        return
     # time.sleep(3)  # 确保文件已保存
     play_wav(str(wav_path))
 
