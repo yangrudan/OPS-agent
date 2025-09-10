@@ -111,7 +111,7 @@ def on_open(ws):
         CHUNK = 520
         FORMAT = pyaudio.paInt16
         CHANNELS = 1
-        RATE = 16000
+        RATE = 16000  # 16000/520=30帧
         p = pyaudio.PyAudio()
         stream = p.open(format=FORMAT,
                         channels=CHANNELS,
@@ -122,7 +122,7 @@ def on_open(ws):
         print("- - - - - - - 开始录音 ...- - - - - - - ")
 
         # 录音60秒超时
-        for i in range(0, int(RATE/CHUNK*60)):
+        for i in range(0, int(RATE/CHUNK*6)):
             buf = stream.read(CHUNK)
             if not buf:
                 status = STATUS_LAST_FRAME
