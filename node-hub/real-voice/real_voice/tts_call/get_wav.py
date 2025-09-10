@@ -34,7 +34,7 @@ def arabic_to_chinese_num(text: str) -> str:
     return text
 
 def get_raw_wav(text):
-    client = Client("https://8e65ccc85a1237ad13.gradio.live/")
+    client = Client("https://b8c48ae070eb82a207.gradio.live/")
     clear_text = arabic_to_chinese_num(text)
     print(f"clear_text: {clear_text}\n")
     result = client.predict(
