@@ -52,7 +52,7 @@ def arabic_to_chinese_num(text: str) -> str:
 def get_raw_wav(text):
     try:
         # 尝试创建客户端连接
-        client = Client("https://cb94260a5a0726758c.gradio.live/")
+        client = Client("https://bd8fd4e093ad674344.gradio.live/")
     except Exception as e:
         print(f"无法连接到服务: {str(e)}")
         print("可能的原因：服务未启动、网络问题或URL错误")
