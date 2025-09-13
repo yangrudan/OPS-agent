@@ -8,7 +8,7 @@ import async_timeout
 TARGET_DEVICE = "C5:CC:7D:AC:31:C2"
 SAVE_TO_FILENAME = "heart_rate_data.txt"
 SCAN_INTERVAL = 1 # 采集间隔（秒）
-COLLECT_COUNT = 5   # 采集次数
+COLLECT_COUNT = 2   # 采集次数
 DEVICE_DISCOVERY_TIMEOUT = 10  # 设备发现超时时间（秒）
 
 
