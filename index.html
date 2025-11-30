@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPS Agent - 老年人智能守护助手</title>
+    <meta name="description" content="OPS Agent 是专为老年人设计的智能助手，提供记忆管理、健康监测和天气服务，致力于提升老年人的生活质量与安全性。">
+    <meta name="keywords" content="老年人, 智能助手, AI Agent, 健康监测, 记忆管理, 天气服务">
+    <link rel="icon" type="image/jpeg" href="./docs/ops-logo.jpg">
+    <style>
+        :root {
+            --primary-color: #E8A838;
+            --primary-dark: #D4922D;
+            --secondary-color: #4A9B8C;
+            --accent-color: #5DADE2;
+            --text-color: #333333;
+            --text-light: #666666;
+            --bg-light: #FFF8F0;
+            --bg-white: #FFFFFF;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-light);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.98);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            padding: 0.8rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .nav-logo img {
+            height: 45px;
+            border-radius: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(232, 168, 56, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(74, 155, 140, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(232, 168, 56, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255,255,255,0.5);
+        }
+
+        .btn-secondary:hover {
+            border-color: #fff;
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Section */
+        .features {
+            background: var(--bg-white);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon.memory {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .feature-icon.health {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .feature-icon.weather {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Innovation Section */
+        .innovation {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .innovation .section-title h2,
+        .innovation .section-title p {
+            color: #fff;
+        }
+
+        .innovation-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .innovation-item {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .innovation-item .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .innovation-item h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .innovation-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: var(--bg-white);
+        }
+
+        .architecture-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .architecture-content img {
+            max-width: 100%;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .architecture-description {
+            margin-top: 2rem;
+            text-align: left;
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+
+        .architecture-description ol {
+            margin-left: 1.5rem;
+        }
+
+        .architecture-description li {
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
+        }
+
+        /* Quick Start Section */
+        .quickstart {
+            background: var(--bg-light);
+        }
+
+        .quickstart-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .code-block {
+            background: #1a1a2e;
+            border-radius: 16px;
+            padding: 2rem;
+            overflow-x: auto;
+            margin-top: 2rem;
+        }
+
+        .code-block pre {
+            color: #e0e0e0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .code-block .comment {
+            color: #6a9955;
+        }
+
+        .code-block .command {
+            color: #4ec9b0;
+        }
+
+        /* Roadmap Section */
+        .roadmap {
+            background: var(--bg-white);
+        }
+
+        .roadmap-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .roadmap-item {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            background: var(--bg-light);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .roadmap-item .number {
+            background: var(--primary-color);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .roadmap-item p {
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            padding: 4rem 2rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                order: -1;
+            }
+
+            .hero-image img {
+                max-width: 280px;
+            }
+
+            .cta-buttons {
+                justify-content: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="./docs/ops-logo.jpg" alt="OPS Agent Logo">
+                <span>OPS Agent</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">核心功能</a></li>
+                <li><a href="#innovation">创新设计</a></li>
+                <li><a href="#architecture">系统架构</a></li>
+                <li><a href="#quickstart">快速开始</a></li>
+                <li><a href="#roadmap">发展规划</a></li>
+                <li><a href="https://github.com/yangrudan/OPS-agent" target="_blank">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>
+                    <span>OPS Agent</span><br>
+                    老年人的智能守护者
+                </h1>
+                <p>
+                    专为老年人设计的 AI 智能助手，提供记忆管理、健康监测和天气服务，
+                    让科技温暖每一位长者的生活。
+                </p>
+                <div class="cta-buttons">
+                    <a href="#quickstart" class="btn btn-primary">🚀 快速开始</a>
+                    <a href="https://github.com/yangrudan/OPS-agent" target="_blank" class="btn btn-secondary">⭐ GitHub</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="./docs/ops-logo.jpg" alt="OPS Agent - Old People's Agent">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="section-title">
+            <h2>💡 核心功能</h2>
+            <p>覆盖老年人日常生活的三大核心服务，让智能守护无处不在</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <div class="feature-icon memory">🧠</div>
+                <h3>记忆管理</h3>
+                <p>
+                    帮助老年人记住重要信息，如用药习惯、亲朋好友的联系方式等。
+                    采用向量数据库技术，支持模糊搜索，即使用简化关键词也能准确找到信息。
+                </p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon health">❤️</div>
+                <h3>健康监测</h3>
+                <p>
+                    通过蓝牙 BLE 协议与小米手环无缝集成，实时采集心率数据，
+                    进行信息整合和分析处理，守护老人健康。
+                </p>
+            </div>
+            <div class="feature-card fade-in">
+                <div class="feature-icon weather">🌤️</div>
+                <h3>天气服务</h3>
+                <p>
+                    提供实时天气信息，根据地理位置自动获取天气预报，
+                    帮助老年人合理安排出行和日常活动。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Innovation Section -->
+    <section id="innovation" class="innovation">
+        <div class="section-title">
+            <h2>🔬 创新设计</h2>
+            <p>融合前沿技术，打造最贴心的老年人智能助手</p>
+        </div>
+        <div class="innovation-grid">
+            <div class="innovation-item fade-in">
+                <div class="icon">🗣️</div>
+                <h3>自然语言交互</h3>
+                <p>通过语音或文字与 Agent 交流，无需复杂操作</p>
+            </div>
+            <div class="innovation-item fade-in">
+                <div class="icon">⌚</div>
+                <h3>硬件集成</h3>
+                <p>蓝牙 BLE 协议与 MiBand6 手环设备无缝对接</p>
+            </div>
+            <div class="innovation-item fade-in">
+                <div class="icon">🔍</div>
+                <h3>向量数据库</h3>
+                <p>BAAI/bge 模型驱动，确保记忆检索的准确性</p>
+            </div>
+            <div class="innovation-item fade-in">
+                <div class="icon">🎯</div>
+                <h3>中心调度</h3>
+                <p>ops-scheduler 智能协调各模块，高效响应</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="architecture">
+        <div class="section-title">
+            <h2>🌳 系统架构</h2>
+            <p>基于 mofa-ai 框架构建的分布式智能 Agent 系统</p>
+        </div>
+        <div class="architecture-content">
+            <img src="./docs/dataflow.png" alt="OPS Agent 系统架构图">
+            <div class="architecture-description">
+                <h4>关键数据流说明</h4>
+                <p>OPS Agent 系统通过中心调度节点 (ops-scheduler) 协调各模块：</p>
+                <ol>
+                    <li>接收用户输入（语音/文本）</li>
+                    <li>分发请求到记忆/天气模块</li>
+                    <li>与智能硬件设备实时交互</li>
+                    <li>整合信息并通过语音/文本反馈给用户</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Start Section -->
+    <section id="quickstart" class="quickstart">
+        <div class="section-title">
+            <h2>🚀 快速开始</h2>
+            <p>只需几步，即可体验 OPS Agent 的强大功能</p>
+        </div>
+        <div class="quickstart-content">
+            <div class="code-block">
+                <pre><span class="comment"># 准备框架</span>
+<span class="command">pip install mofa-ai</span>
+
+<span class="comment"># 安装依赖</span>
+<span class="command">pip install bleak</span>  <span class="comment"># 蓝牙 BLE 协议采集</span>
+
+<span class="comment"># 克隆项目</span>
+<span class="command">git clone https://github.com/yangrudan/OPS-agent.git</span>
+<span class="command">cd OPS-agent/examples/ops-agent</span>
+
+<span class="comment"># 配置 .env.secret 文件</span>
+<span class="comment"># LLM_API_KEY=sk-xxxx</span>
+<span class="comment"># LLM_API_BASE=https://api.moonshot.cn/v1</span>
+<span class="comment"># LLM_MODEL=moonshot-v1-32k</span>
+
+<span class="comment"># 启动服务</span>
+<span class="command">dora up</span>
+<span class="command">dora build ops_agent_dataflow.yml</span>
+<span class="command">dora start ops_agent_dataflow.yml</span>
+
+<span class="comment"># 在另一个终端运行</span>
+<span class="command">mock-voice</span>
+<span class="command">李爷爷 吃药时间</span></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="roadmap">
+        <div class="section-title">
+            <h2>👋 发展规划</h2>
+            <p>持续迭代，为老年人打造更加智能、贴心的服务</p>
+        </div>
+        <div class="roadmap-grid">
+            <div class="roadmap-item fade-in">
+                <div class="number">1</div>
+                <p>进行每天的健康数据、活动轨迹的存储与分析，提供<strong>健康报告</strong></p>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="number">2</div>
+                <p>支持更多场景，如新闻播报、🎶 戏曲播放、日常规划、购物提醒等</p>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="number">3</div>
+                <p>支持更多智能硬件设备，如<strong>智能手表</strong>、👓 <strong>智能眼镜</strong>等</p>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="number">4</div>
+                <p>提高语音识别和自然语言处理能力，对<strong>方言</strong>更好的识别，实现更智能的交互</p>
+            </div>
+            <div class="roadmap-item fade-in">
+                <div class="number">5</div>
+                <p>增强 ⚠️ <strong>安全防护机制</strong>，在异常情况下进行主动处理（如呼叫紧急联系人），保障老人安全</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>关于 OPS Agent</h4>
+                <p>
+                    OPS Agent（Old People's Agent）是基于 mofa-ai 框架打造的老年人智能助手，
+                    遵循成为老年人守护者的初心，致力于提升老年人的生活质量与安全性。
+                </p>
+            </div>
+            <div class="footer-section">
+                <h4>相关资源</h4>
+                <a href="https://github.com/yangrudan/OPS-agent" target="_blank">📦 GitHub 仓库</a>
+                <a href="https://github.com/mofa-org/mofa" target="_blank">🔧 mofa-ai 框架</a>
+                <a href="https://huggingface.co/BAAI/bge-small-zh" target="_blank">🤗 BGE 模型</a>
+            </div>
+            <div class="footer-section">
+                <h4>技术支持</h4>
+                <a href="https://www.apispace.com/" target="_blank">天气 API</a>
+                <a href="https://console.xfyun.cn/" target="_blank">讯飞开放平台</a>
+                <a href="https://github.com/2noise/ChatTTS" target="_blank">ChatTTS</a>
+            </div>
+            <div class="footer-section">
+                <h4>联系我们</h4>
+                <div class="social-links">
+                    <a href="https://github.com/yangrudan/OPS-agent" target="_blank">🐙</a>
+                </div>
+                <p style="margin-top: 1rem;">欢迎加入，共同为 OPS Agent 贡献力量！</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 OPS Agent. Made with ❤️ for the elderly.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
